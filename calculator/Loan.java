@@ -1,4 +1,5 @@
 package calculator;
+import java.util.Scanner;
 
 public class Loan {
     int houseCost;
@@ -10,16 +11,46 @@ public class Loan {
     int loanMonthDuration;
     int principal;
     double monthlyPayment;
+    Scanner sc = new Scanner(System.in);
 
-    public Loan(int houseCost, int downPayment, double yearlyInterestRate, int loanYearDuration){
-        this.houseCost = houseCost;
-        this.downPayment = downPayment;
-        this.yearlyInterestRate = yearlyInterestRate;
-        this.loanYearDuration = loanYearDuration;
+    public Loan(){
+        this.houseCost = getHouseCost();
+        this.downPayment = getDownPayment();
+        this.yearlyPercentageInterest = getYearlyPercentageInterest();
+        this.yearlyInterestRate = convertPercentage();
+        this.loanYearDuration = getLoanYearDuration();
         this.loanMonthDuration = calcLoanMonthDuration();
         this.principal = calcPrincipal();
         this.monthlyInterestRate = calcMonthlyInterest();
         this.monthlyPayment = calcMonthlyPayment();
+    }
+
+    public int getHouseCost(){
+        System.out.println("Enter the total cost of your house");
+        houseCost = sc.nextInt();
+        return houseCost;
+    }
+
+    public int getDownPayment(){
+        System.out.println("Enter the total downpayment you have paid");
+        downPayment = sc.nextInt();
+        return downPayment;
+    }
+
+    public double getYearlyPercentageInterest(){
+        System.out.println("Enter the annual interest rate as a percentage value");
+        yearlyPercentageInterest = sc.nextDouble();
+        return yearlyPercentageInterest;
+    }
+
+    public int getLoanYearDuration(){
+        System.out.println("Enter the amount of years your loan is for");
+        loanYearDuration = sc.nextInt();
+        return loanYearDuration;
+    }
+
+     public double convertPercentage(){
+        return yearlyPercentageInterest/100;
     }
 
     public double calcMonthlyInterest(){
@@ -41,4 +72,13 @@ public class Loan {
     public double calcMonthlyPayment(){
         return (monthlyInterestRate * ((Math.pow(1 + monthlyInterestRate, loanMonthDuration))) / (Math.pow(1 + monthlyInterestRate, loanMonthDuration))*principal);
     }
+
+    public void getUserInfo(){
+        getHouseCost();
+        getDownPayment();
+        getYearlyPercentageInterest();
+        getLoanYearDuration();
+        System.out.println(calcMonthlyPayment());
+    }
+    
 }
