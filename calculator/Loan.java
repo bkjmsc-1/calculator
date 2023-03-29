@@ -2,28 +2,16 @@ package calculator;
 import java.util.Scanner;
 
 public class Loan {
-    int houseCost;
-    int downPayment;
-    double yearlyPercentageInterest;    
-    double yearlyInterestRate;
-    double monthlyInterestRate;
-    int loanYearDuration;
-    int loanMonthDuration;
-    int principal;
-    double monthlyPayment;
+    int houseCost = 0;
+    int downPayment = 0;
+    double yearlyPercentageInterest = 0;    
+    double yearlyInterestRate = 0;
+    double monthlyInterestRate = 0;
+    int loanYearDuration = 0;
+    int loanMonthDuration = 0;
+    int principal = 0;
+    double monthlyPayment = 0;
     Scanner sc = new Scanner(System.in);
-
-    public Loan(){
-        this.houseCost = getHouseCost();
-        this.downPayment = getDownPayment();
-        this.yearlyPercentageInterest = getYearlyPercentageInterest();
-        this.yearlyInterestRate = convertPercentage();
-        this.loanYearDuration = getLoanYearDuration();
-        this.loanMonthDuration = calcLoanMonthDuration();
-        this.principal = calcPrincipal();
-        this.monthlyInterestRate = calcMonthlyInterest();
-        this.monthlyPayment = calcMonthlyPayment();
-    }
 
     public int getHouseCost(){
         System.out.println("Enter the total cost of your house");
@@ -50,34 +38,41 @@ public class Loan {
     }
 
      public double convertPercentage(){
-        return yearlyPercentageInterest/100;
+        yearlyInterestRate = yearlyPercentageInterest/100;
+        return yearlyInterestRate;
     }
 
     public double calcMonthlyInterest(){
-        if(yearlyInterestRate <= 0 || yearlyInterestRate > 1)
-        throw new IllegalArgumentException("The interest rate should be a decimal value greater than 0 and less than 1.");
-        return yearlyInterestRate/12;
+        monthlyInterestRate = this.yearlyInterestRate/12;
+        return monthlyInterestRate;
     }
 
     public int calcLoanMonthDuration(){
-        if(loanYearDuration < 1 || loanYearDuration > 70)
-        throw new IllegalArgumentException("Enter the number of years your loan is for. It should be greater than 1 and less than 70.");
-        return loanYearDuration * 12;
+    
+        loanMonthDuration = loanYearDuration * 12;
+        return loanMonthDuration;
     }
 
     public int calcPrincipal(){
-        return houseCost - downPayment;
+        principal = houseCost - downPayment;
+        return principal;
     }
 
     public double calcMonthlyPayment(){
-        return (monthlyInterestRate * ((Math.pow(1 + monthlyInterestRate, loanMonthDuration))) / (Math.pow(1 + monthlyInterestRate, loanMonthDuration))*principal);
+        monthlyPayment = (this.monthlyInterestRate * ((Math.pow(1 + this.monthlyInterestRate, this.loanMonthDuration))) / (Math.pow(1 + this.monthlyInterestRate, this.loanMonthDuration))*this.principal);
+        return monthlyPayment;
     }
 
     public void getUserInfo(){
         getHouseCost();
         getDownPayment();
+        calcPrincipal();
         getYearlyPercentageInterest();
+        convertPercentage();
+        calcMonthlyInterest();
         getLoanYearDuration();
+        calcLoanMonthDuration();
+  
         System.out.println(calcMonthlyPayment());
     }
     
