@@ -14,26 +14,46 @@ public class Loan {
     Scanner sc = new Scanner(System.in);
 
     public int getHouseCost(){
+        while(true){
         System.out.println("Enter the total cost of your house");
         houseCost = sc.nextInt();
+        if(houseCost > 1_000 && houseCost <= 1_000_000)
+            break;  
+        System.out.println("Enter a number greater than 1,000 and less than 1,000,000");
+        }
         return houseCost;
     }
 
     public int getDownPayment(){
+        while(true){
         System.out.println("Enter the total downpayment you have paid");
         downPayment = sc.nextInt();
+        if(downPayment >= 0 && downPayment < houseCost)
+            break;
+        System.out.println("The downpayment must be 0 or greater and less than the cost of the house.");    
+        }
         return downPayment;
     }
 
     public double getYearlyPercentageInterest(){
+        while(true){
         System.out.println("Enter the annual interest rate as a percentage value");
         yearlyPercentageInterest = sc.nextDouble();
+        if(yearlyPercentageInterest > 0 && yearlyPercentageInterest< 100)
+            break;
+        System.out.println("Enter a number greater than 0 and less than 100.");
+        }
         return yearlyPercentageInterest;
     }
 
     public int getLoanYearDuration(){
+        while(true){
         System.out.println("Enter the amount of years your loan is for");
         loanYearDuration = sc.nextInt();
+        if(loanYearDuration > 0 && loanYearDuration <= 70)
+            break;
+        System.out.println("Enter a number greater than 0 and less than or equal to 70.");
+        }
         return loanYearDuration;
     }
 
